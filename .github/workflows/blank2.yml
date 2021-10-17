@@ -23,5 +23,5 @@ jobs:
                   REPO_NAME: ${{ github.event.repository.name }}
               run: |
                   ls
-                  mkdir -p ~/valentine;
-                  echo "stephen"
+                  mkdir -p ~/valentine2;
+                  echo "mike"
