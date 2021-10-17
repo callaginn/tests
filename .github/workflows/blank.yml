@@ -28,4 +28,4 @@ jobs:
           REPO_NAME: basename ${{ github.repository }}
 
       - name: SSH into server
-        run: ssh staging 'echo ${{ REPO_NAME }};'
+        run: ssh staging 'echo ${{ env.REPO_NAME }};'
