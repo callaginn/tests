@@ -1,32 +1,32 @@
 name: CI
-on: [push, pull_request]
+on:
+    push:
+        branches: [main]
 jobs:
-  # test:
-  #   ...
-  deploy:
-    name: "Deploy to staging"
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    # needs: test
-    steps:
-      - name: Configure SSH
-        run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_KEY" > ~/.ssh/staging.key
-          chmod 600 ~/.ssh/staging.key
-          cat >>~/.ssh/config <<END
-          Host staging
-            HostName $SSH_HOST
-            User $SSH_USER
-            IdentityFile ~/.ssh/staging.key
-            StrictHostKeyChecking no
-          END
-        env:
-          SSH_USER: ${{ secrets.SSH_USER }}
-          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
-
-      - name: SSH into server
-        run: ssh staging 'echo ${{ REPO_NAME }};'
-        env:
-          REPO_NAME: ${{ github.event.repository.name }}
+    deploy:
+        runs-on: ubuntu-latest
+        name: "Deploy to staging"
+        steps:
+            - name: Configure SSH
+              env:
+                  SSH_USER: ${{ secrets.SSH_USER }}
+                  SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+                  SSH_HOST: ${{ secrets.SSH_HOST }}
+              run: |
+                  mkdir -p ~/.ssh/
+                  echo "$SSH_KEY" > ~/.ssh/staging.key
+                  chmod 600 ~/.ssh/staging.key
+                  cat >>~/.ssh/config <<END
+                  Host staging
+                      HostName $SSH_HOST
+                      User $SSH_USER
+                      IdentityFile ~/.ssh/staging.key
+                      StrictHostKeyChecking no
+                  END
+            - name: SSH into server
+              env:
+                  REPO_NAME: ${{ github.event.repository.name }}
+              run: |
+                  ssh staging
+                  mkdir -p ~/${{ env.REPO_NAME }};
+                  ls
