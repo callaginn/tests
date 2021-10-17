@@ -11,7 +11,6 @@ jobs:
                   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
               run: |
                   mkdir -p ~/.ssh
-                  # Replace example.com with the hostname of the machine you're SSH-ing into
                   ssh-keyscan ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
                   # SSH_PRIVATE_KEY is the name of the repository secret
                   echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/github_actions
@@ -21,8 +20,8 @@ jobs:
             - name: Build and deploy
               env:
                   SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+                  REPO_NAME: ${{ github.event.repository.name }}
               run: |
                   ls
+                  mkdir -p ~/valentine;
                   echo "stephen"
-                  echo "hello"
-                  which bash
