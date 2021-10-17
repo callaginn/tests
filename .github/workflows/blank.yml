@@ -27,4 +27,4 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
 
       - name: SSH into server
-        run: ssh staging 'basename ${{ github.repository }};'
+        run: ssh staging 'echo ${{ github.event.repository.name }};'
