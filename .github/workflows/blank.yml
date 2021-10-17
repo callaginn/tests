@@ -25,6 +25,7 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
+          REPO_NAME: basename ${{ github.repository }}
 
       - name: SSH into server
-        run: ssh staging 'ls; echo ${{ github.repository }}; cd freedomviews.com; ls'
+        run: ssh staging 'echo ${{ REPO_NAME }};'
