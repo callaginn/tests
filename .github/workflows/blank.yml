@@ -25,7 +25,6 @@ jobs:
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
-          REPO_NAME: ${{ github.repository }}
 
       - name: SSH into server
-        run: ssh staging 'basename ${{ env.REPO_NAME }};'
+        run: ssh staging 'basename ${{ github.repository }};'
