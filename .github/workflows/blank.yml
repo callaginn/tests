@@ -27,4 +27,9 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
 
       - name: SSH into server
-        run: ssh staging 'ls'
+        run: |
+          ssh staging
+          ls
+          echo ${{ github.repository }}
+          cd freedomviews.com
+          ls
