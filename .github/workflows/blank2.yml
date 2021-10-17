@@ -1,0 +1,28 @@
+name: CI2
+on:
+    push:
+        branches: [main]
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Add SSH key
+              env:
+                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+              run: |
+                  mkdir -p ~/.ssh
+                  # Replace example.com with the hostname of the machine you're SSH-ing into
+                  ssh-keyscan ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+                  # SSH_PRIVATE_KEY is the name of the repository secret
+                  echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/github_actions
+                  chmod 600 ~/.ssh/github_actions
+                  ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+                  ssh-add ~/.ssh/github_actions
+            - name: Build and deploy
+              env:
+                  SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+              run: |
+                  ls
+                  echo "stephen"
+                  echo "hello"
+                  which bash
