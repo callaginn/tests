@@ -27,10 +27,11 @@ jobs:
               id: xyz
               run: |
                   ssh staging << EOF
-                      echo "::set-output name=home::$(cd ~ && ls)"
+                      cd ~
+                      pwd
                   EOF
             - name: Clone or Pull Updates
               env:
                   REPO_NAME: ${{ github.event.repository.name }}
                   REPO_URL: ${{ github.event.repository.ssh_url }}
-              run: echo "${{ steps.xyz.outputs.home }}"
+              run: echo "stephen"
