@@ -23,12 +23,14 @@ jobs:
                       IdentityFile ~/.ssh/staging.key
                       StrictHostKeyChecking no
                   END
+
+                  echo "GITHUB_SHA_SHORT=$(echo ~)" >> $GITHUB_ENV
             - name: Clone or Pull Updates
               env:
                   REPO_NAME: ${{ github.event.repository.name }}
                   REPO_URL: ${{ github.event.repository.ssh_url }}
               run: |
                   ssh staging bash << EOF
-                      DEST="hello"
-                      echo "DEST: $DEST"
+                      echo $GITHUB_SHA_SHORT
+                      
                   EOF
