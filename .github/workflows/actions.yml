@@ -26,7 +26,12 @@ jobs:
             - name: Setting Variables
               id: home
               run: echo "::set-output name=home::$(ssh staging 'cd ~ && pwd')"
-            - name: Print home path
+            - name: Clone or Pull Updates
               env:
                   HOME: ${{ steps.home.outputs.home }}
-              run: echo "${{ env.home }}"
+                  REPO_NAME: ${{ github.event.repository.name }}
+                  REPO_URL: ${{ github.event.repository.ssh_url }}
+              run: |
+                  ssh staging bash << EOF
+                      echo ${{ env.HOME }} >> ~/users.txt
+                  EOF
