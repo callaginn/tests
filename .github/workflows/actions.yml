@@ -27,7 +27,7 @@ jobs:
               id: xyz
               run: |
                   ssh staging << EOF
-                      echo "::set-output name=home::$(echo ~)"
+                      echo "::set-output name=home::$(cd ~ && ls)"
                   EOF
             - name: Clone or Pull Updates
               env:
