@@ -24,10 +24,10 @@ jobs:
                       StrictHostKeyChecking no
                   END
             - name: Setting Variables
-              run: ssh staging 'echo "HOME=$(echo ~)" >> $GITHUB_ENV'
+              run: echo "abbr=$(date '+tuesday%y%m%d')" >> $GITHUB_ENV
             - name: Clone or Pull Updates
               env:
                   REPO_NAME: ${{ github.event.repository.name }}
                   REPO_URL: ${{ github.event.repository.ssh_url }}
               run: |
-                  echo $HOME
+                  echo "$abbr"
