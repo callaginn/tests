@@ -26,7 +26,8 @@ jobs:
             - name: Setting Variables
               run: |
                   ssh staging << EOF
-                      echo "HOME=$(echo ~)" >> $GITHUB_ENV
+                      cd ~
+                      echo "HOME=$PWD" >> $GITHUB_ENV
                   EOF
             - name: Clone or Pull Updates
               env:
