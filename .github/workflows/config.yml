@@ -27,7 +27,7 @@ jobs:
               run: |
                   ssh staging bash << EOF
                       export CONFIG=$(cat ~/cremadesignstudio.com/git/config.json)
-                      echo "::set-env name=CONFIG::$CONFIG"
+                      echo "CONFIG=$CONFIG" >> $GITHUB_ENV
                   EOF
             - name: Filtering Config File
-              run: echo $CONFIG
+              run: echo ${{ env.CONFIG }}
