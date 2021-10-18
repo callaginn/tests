@@ -33,7 +33,7 @@ jobs:
                   DEST: "${{ steps.home.outputs.home }}/${{ github.event.repository.name }}"
               run: |
                   ssh staging bash << EOF
-                      if [[ ! -d "${{ env.DEST }}" ]]; then
+                      if [[ ! -f "${{ env.DEST }}/.git/index" ]]; then
                           echo "Cloning new repo..."
                           git clone -b main --single-branch "${{ env.REPO_URL }}" "${{ env.DEST }}"
                       else
