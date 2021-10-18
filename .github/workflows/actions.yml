@@ -29,6 +29,6 @@ jobs:
                   REPO_URL: ${{ github.event.repository.ssh_url }}
               run: |
                   ssh staging bash << EOF
-                      DEST="$HOME/${{ env.REPO_NAME }}"
+                      DEST=~/${{ env.REPO_NAME }}
                       echo "DEST: $DEST"
                   EOF
