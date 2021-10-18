@@ -24,7 +24,7 @@ jobs:
                       StrictHostKeyChecking no
                   END
             - name: Setting Variables
-              run: echo "HOME=~" >> $GITHUB_ENV
+              run: echo "HOME=$(echo ~)" >> $GITHUB_ENV
             - name: Clone or Pull Updates
               env:
                   REPO_NAME: ${{ github.event.repository.name }}
