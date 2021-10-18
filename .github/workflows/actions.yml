@@ -27,4 +27,6 @@ jobs:
               id: home
               run: echo "::set-output name=home::$(ssh staging 'cd ~ && pwd')"
             - name: Print home path
-              run: echo "${{ steps.home.outputs.home }}"
+              env:
+                  HOME: ${{ steps.home.outputs.home }}
+              run: echo "${{ env.home }}"
