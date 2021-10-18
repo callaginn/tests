@@ -28,10 +28,13 @@ jobs:
               run: echo "::set-output name=home::$(ssh staging 'cd ~ && pwd')"
             - name: Clone or Pull Updates
               env:
-                  HOME: ${{ steps.home.outputs.home }}
+                  DEST: ${{ steps.home.outputs.home }}
                   REPO_NAME: ${{ github.event.repository.name }}
                   REPO_URL: ${{ github.event.repository.ssh_url }}
               run: |
                   ssh staging bash << EOF
-                      echo ${{ env.HOME }} >> ~/users.txt
+                      DEST="${{ env.DEST }}/${{ env.REPO_NAME }}"
+                      echo $DEST >> ~/users.txt
+
+                     
                   EOF
