@@ -24,14 +24,13 @@ jobs:
                       StrictHostKeyChecking no
                   END
             - name: Setting Variables
+              id: xyz
               run: |
                   ssh staging << EOF
-                      cd ~
-                      echo "HOME=$PWD" >> $GITHUB_ENV
+                      echo "::set-output name=home::$(echo ~)"
                   EOF
             - name: Clone or Pull Updates
               env:
                   REPO_NAME: ${{ github.event.repository.name }}
                   REPO_URL: ${{ github.event.repository.ssh_url }}
-              run: |
-                  echo $HOME
+              run: echo "${{ steps.xyz.outputs.home }}"
