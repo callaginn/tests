@@ -31,7 +31,10 @@ jobs:
                   ssh staging bash << EOF
                       mkdir -p ~/${{ env.REPO_NAME }}
 
-                      if [[ -f ~/${{ env.REPO_NAME }} ]]; then
+                      echo "checking for ~/${{ env.REPO_NAME }}"
+                      echo "URL: ${{ env.REPO_URL }}"
+
+                      if [[ -d ~/${{ env.REPO_NAME }} ]]; then
                           echo "folder exists"
                       else
                           echo "folder does not exist"
