@@ -33,7 +33,11 @@ jobs:
                   DEST: "${{ steps.home.outputs.home }}/${{ github.event.repository.name }}"
               run: |
                   ssh staging bash << EOF
-                      mkdir -p "${{ env.DEST }}"
-
-
+                      if [[ ! -d "${{ env.DEST }}" ]]; then
+                          echo "Cloning new repo..."
+                          git clone -b main --single-branch "${{ env.REPO_URL }}" "${{ env.DEST }}"
+                      else
+                          echo "Pulling changes..."
+                          cd "${{ env.DEST }}" && git fetch && git pull
+                      fi
                   EOF
