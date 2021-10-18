@@ -1,0 +1,29 @@
+name: CI2
+on:
+    push:
+        branches: [main]
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        name: "Filter Config File"
+        steps:
+            - name: Configure SSH
+              run: |
+                  mkdir -p ~/.ssh/
+                  echo "$SSH_KEY" > ~/.ssh/staging.key
+                  chmod 600 ~/.ssh/staging.key
+                  cat >>~/.ssh/config <<END
+                  Host staging
+                      HostName $SSH_HOST
+                      User $SSH_USER
+                      IdentityFile ~/.ssh/staging.key
+                      StrictHostKeyChecking no
+                  END
+            - name: Clone or Pull Updates
+              run: |
+                  ssh staging bash << EOF
+                      export CONFIG=$(cat ~/cremadesignstudio.com/git/config.json)
+                      echo "::set-env name=CONFIG::$CONFIG"
+                  EOF
+            - name: Filtering Config File
+              run: echo $CONFIG
