@@ -34,7 +34,7 @@ jobs:
               run: |
                   ssh staging bash << EOF
                       DEST="${{ env.DEST }}/${{ env.REPO_NAME }}"
-                      echo $DEST >> ~/users.txt
+                      echo "abc: $DEST" >> ~/users2.txt
 
-                     
+
                   EOF
