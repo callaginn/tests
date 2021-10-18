@@ -26,9 +26,14 @@ jobs:
             - name: SSH into server
               env:
                   REPO_NAME: ${{ github.event.repository.name }}
+                  REPO_URL: ${{ github.event.repository.ssh_url }}
               run: |
                   ssh staging bash << EOF
-                      mkdir -p ~/abc2
-                      mkdir -p ~/harbor2
                       mkdir -p ~/${{ env.REPO_NAME }}
+
+                      if [[ -f ~/${{ env.REPO_NAME }} ]]; then
+                          echo "folder exists"
+                      else
+                          echo "folder does not exist"
+                      fi
                   EOF
