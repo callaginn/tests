@@ -24,10 +24,7 @@ jobs:
                       StrictHostKeyChecking no
                   END
             - name: Setting Variables
-              run: |
-                  ssh staging bash << EOF
-                      echo ~ >> $HOME
-                  EOF
+              run: ssh staging 'echo ~ >> $HOME'
             - name: Clone or Pull Updates
               env:
                   REPO_NAME: ${{ github.event.repository.name }}
