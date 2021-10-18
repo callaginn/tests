@@ -33,8 +33,7 @@ jobs:
                   REPO_URL: ${{ github.event.repository.ssh_url }}
               run: |
                   ssh staging bash << EOF
-                      DEST="${{ env.DEST }}/${{ env.REPO_NAME }}"
-                      mkdir -p "$DEST"
+                      mkdir -p "${{ env.DEST }}/${{ env.REPO_NAME }}"
 
 
                   EOF
