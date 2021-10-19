@@ -26,7 +26,7 @@ jobs:
             - name: Clone or Pull Updates
               run: |
                   echo 'CONFIG<<EOF' >> $GITHUB_ENV
-                  ssh staging 'cat ~/cremadesignstudio.com/git/config.json' >> $GITHUB_ENV
+                  echo $(ssh staging 'cat ~/cremadesignstudio.com/git/config.json') >> $GITHUB_ENV
                   echo 'EOF' >> $GITHUB_ENV
             - name: Echo Config
-              run: echo ${{ env.CONFIG }}
+              run: echo "${{ env.CONFIG }}"
