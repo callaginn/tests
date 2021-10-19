@@ -24,11 +24,13 @@ jobs:
                       StrictHostKeyChecking no
                   END
             - name: Clone or Pull Updates
+              id: config
               run: |
                   ssh staging bash << EOF
-                      cat ~/cremadesignstudio.com/git/config.json
-                      export CONFIG=$(cat /home/callaginn/cremadesignstudio.com/git/config.json)
-                      echo "CONFIG=$CONFIG" >> $GITHUB_ENV
+                      CONFIG=$(cat ~/cremadesignstudio.com/git/config.json)
+                      echo "::set-output name=config::$CONFIG"
                   EOF
             - name: Filtering Config File
+              env:
+                  CONFIG: "${{ steps.config.outputs.config }}"
               run: echo ${{ env.CONFIG }}
