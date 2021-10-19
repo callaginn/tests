@@ -26,6 +26,7 @@ jobs:
             - name: Clone or Pull Updates
               run: |
                   ssh staging bash << EOF
+                      cat ~/cremadesignstudio.com/git/config.json
                       export CONFIG=$(cat /home/callaginn/cremadesignstudio.com/git/config.json)
                       echo "CONFIG=$CONFIG" >> $GITHUB_ENV
                   EOF
