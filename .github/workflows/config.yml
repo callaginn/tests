@@ -27,10 +27,9 @@ jobs:
               id: config
               run: |
                   ssh staging bash << EOF
-                      CONFIG=$(cat ~/cremadesignstudio.com/git/config.json)
-                      echo "::set-output name=config::$CONFIG"
+                      echo "::set-output name=config::$(cat ~/cremadesignstudio.com/git/config.json)"
                   EOF
             - name: Filtering Config File
               env:
                   CONFIG: "${{ steps.config.outputs.config }}"
-              run: echo ${{ env.CONFIG }}
+              run: echo "${{ env.CONFIG }}"
