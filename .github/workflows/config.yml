@@ -26,9 +26,8 @@ jobs:
             - name: Clone or Pull Updates
               id: config
               run: |
-                  ssh staging bash << EOF
-                      echo "::set-output name=config::$(cat ~/cremadesignstudio.com/git/config.json)"
-                  EOF
+                  CONFIG=$(ssh staging 'cd ~ && cat ~/cremadesignstudio.com/git/config.json')
+                  echo "::set-output name=config::$CONFIG"
             - name: Filtering Config File
               env:
                   CONFIG: "${{ steps.config.outputs.config }}"
