@@ -24,11 +24,8 @@ jobs:
                       StrictHostKeyChecking no
                   END
             - name: Clone or Pull Updates
-              id: config
               run: |
-                  CONFIG=$(ssh staging 'cat ~/cremadesignstudio.com/git/config.json')
-                  echo "::set-output name=config::$CONFIG"
-            - name: Filtering Config File
-              env:
-                  CONFIG: "${{ steps.config.outputs.config }}"
-              run: echo "${{ env.CONFIG }}"
+                  export CONFIG=$(ssh staging 'cat ~/cremadesignstudio.com/git/config.json')
+                  echo "::set-env name=CONFIG::$CONFIG"
+            - name: Echo Config
+              run: echo $CONFIG
